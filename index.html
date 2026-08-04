@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مكتبة التميز — قرطاسية . كتب . أدوات مدرسية</title>
+<meta name="description" content="مكتبة التميز — قرطاسية وكتب وأدوات مدرسية. هيت، حي الزهور، مجاور متوسطة زدني علمًا للبنات.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#152647;--navy2:#24407a;--ink:#1c2b4a;
+  --gold:#c9971c;--gold2:#e6b93f;
+  --bg:#f2f4f9;--card:#ffffff;--line:#e6e9f1;
+  --mut:#7c87a0;--green:#17a45c;--wa:#25d366;--red:#d64541;
+  --sh:0 2px 14px rgba(21,38,71,.07);
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--ink);padding-bottom:110px}
+button{font-family:inherit;cursor:pointer;border:none}
+input,select,textarea{font-family:inherit}
+img{-webkit-user-drag:none}
+
+#announce{background:linear-gradient(90deg,var(--gold),var(--gold2));color:#fff;text-align:center;font-size:.76rem;font-weight:700;padding:7px 12px;display:none}
+
+header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.head-in{max-width:1100px;margin:auto;display:flex;align-items:center;gap:10px;padding:9px 14px}
+.brand{display:flex;align-items:center;gap:9px;user-select:none;cursor:pointer}
+.brand img{width:44px;height:44px;object-fit:contain;border-radius:12px}
+.brand b{font-weight:900;font-size:1.02rem}
+.brand small{display:block;font-size:.6rem;color:var(--gold);font-weight:800;letter-spacing:.6px}
+.sp{flex:1}
+#syncDot{width:9px;height:9px;border-radius:50%;background:#c2c9d8;flex-shrink:0}
+#syncDot.ok{background:var(--green)}
+.cart-btn{position:relative;background:var(--navy);color:#fff;border-radius:14px;padding:9px 15px;font-weight:800;font-size:.82rem;display:flex;align-items:center;gap:7px;box-shadow:var(--sh)}
+.cart-btn .n{background:var(--gold);border-radius:20px;min-width:20px;height:20px;font-size:.68rem;display:flex;align-items:center;justify-content:center;padding:0 5px}
+
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);padding:28px 16px 64px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(230,185,63,.22),transparent 70%);top:-120px;inset-inline-start:-90px}
+.hero::after{content:'';position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.07),transparent 70%);bottom:-90px;inset-inline-end:-60px}
+.hero-in{max-width:1100px;margin:auto;position:relative;z-index:1;display:flex;align-items:center;gap:18px}
+.hero-logo{width:96px;height:96px;background:#fff;border-radius:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.25);flex-shrink:0}
+.hero-logo img{width:82px;height:82px;object-fit:contain}
+.hero h1{color:#fff;font-weight:900;font-size:1.35rem;line-height:1.5}
+.hero p{color:#c7d2ea;font-size:.78rem;margin-top:2px}
+.hero .gold-line{display:inline-block;background:linear-gradient(90deg,var(--gold2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.search-wrap{max-width:1100px;margin:-26px auto 0;padding:0 16px;position:relative;z-index:2}
+.search{display:flex;align-items:center;gap:8px;background:#fff;border-radius:16px;box-shadow:0 8px 26px rgba(21,38,71,.14);padding:5px 6px 5px 14px}
+.search input{flex:1;border:none;outline:none;padding:11px 6px;font-size:.95rem;background:none}
+.search .ic{color:var(--mut);font-size:1.05rem}
+
+.cats{max-width:1100px;margin:auto;display:flex;gap:8px;overflow-x:auto;padding:16px 16px 4px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cats button{white-space:nowrap;display:flex;align-items:center;gap:6px;padding:8px 15px;border-radius:26px;background:#fff;font-size:.78rem;font-weight:800;color:var(--ink);box-shadow:var(--sh);transition:.15s}
+.cats button.on{background:var(--navy);color:#fff}
+.cats button span{font-size:.95rem}
+
+.sec{max-width:1100px;margin:auto;padding:14px 16px 4px;display:flex;align-items:center;justify-content:space-between}
+.sec b{font-weight:900;font-size:.95rem}
+.sec span{font-size:.7rem;color:var(--mut)}
+
+.grid{max-width:1100px;margin:auto;padding:8px 14px;display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+@media(min-width:640px){.grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}}
+.card{background:var(--card);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;position:relative;box-shadow:var(--sh);transition:transform .15s, box-shadow .15s}
+.card:active{transform:scale(.98)}
+@media(hover:hover){.card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(21,38,71,.13)}}
+.card .im{aspect-ratio:1;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.card .im img{width:100%;height:100%;object-fit:cover}
+.card .im .ph{font-size:2.6rem;filter:saturate(.9)}
+.badge{position:absolute;top:9px;inset-inline-start:9px;background:linear-gradient(90deg,var(--gold),var(--gold2));color:#fff;font-size:.6rem;font-weight:900;padding:3px 10px;border-radius:20px;box-shadow:0 3px 8px rgba(201,151,28,.35)}
+.badge.out{background:#98a1b5}
+.card .bd{padding:9px 11px 11px;display:flex;flex-direction:column;gap:7px;flex:1}
+.card .nm{font-size:.76rem;font-weight:700;line-height:1.5;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .pr{display:flex;align-items:baseline;gap:6px}
+.card .pr b{color:var(--navy);font-size:1.02rem;font-weight:900}
+.card .pr small{font-size:.58rem;color:var(--mut);font-weight:700}
+.card .pr s{color:#b1b9ca;font-size:.7rem}
+.card .add{width:100%;padding:9px;border-radius:12px;background:var(--navy);color:#fff;font-weight:800;font-size:.76rem;transition:.15s}
+.card .add:disabled{background:#cdd3df}
+.card .add.in{background:var(--green)}
+.adm-mini{display:none;gap:5px;padding:0 10px 10px}
+body.admin .adm-mini{display:flex}
+.adm-mini button{flex:1;padding:6px;border-radius:9px;background:var(--bg);font-size:.66rem;font-weight:800;color:var(--ink)}
+.adm-mini .d{color:var(--red)}
+.empty{grid-column:1/-1;text-align:center;padding:56px 20px;color:var(--mut);font-size:.9rem}
+
+.cart-bar{position:fixed;bottom:14px;inset-inline:14px;max-width:560px;margin:auto;background:var(--navy);color:#fff;border-radius:18px;padding:13px 18px;display:none;align-items:center;justify-content:space-between;box-shadow:0 10px 30px rgba(21,38,71,.35);z-index:36;cursor:pointer}
+.cart-bar.show{display:flex}
+.cart-bar b{font-weight:900;color:var(--gold2)}
+.cart-bar .go{background:var(--gold);border-radius:12px;padding:7px 16px;font-weight:900;font-size:.8rem;color:#fff}
+
+.wa-fab{position:fixed;bottom:16px;inset-inline-end:14px;background:var(--wa);color:#fff;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(37,211,102,.45);z-index:35;transition:transform .15s}
+.wa-fab:active{transform:scale(.92)}
+.wa-fab svg{width:28px;height:28px;fill:#fff}
+body.has-cart .wa-fab{bottom:86px}
+
+footer{max-width:1100px;margin:30px auto 0;padding:24px 16px 10px;text-align:center;color:var(--mut);font-size:.78rem}
+footer .wa-num{color:var(--green);font-weight:900;text-decoration:none;font-size:1.05rem;direction:ltr;display:inline-block}
+#adminLink{background:none;color:#c2c9d8;font-size:.66rem;margin-top:16px;text-decoration:underline}
+
+.drawer{position:fixed;inset:0;background:rgba(15,25,48,.55);display:none;z-index:50;align-items:flex-end;justify-content:center}
+.drawer.show{display:flex}
+.panel{background:#fff;width:100%;max-width:560px;border-radius:24px 24px 0 0;max-height:92vh;display:flex;flex-direction:column;animation:up .25s}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.panel .hd{padding:16px 18px 10px;display:flex;align-items:center;justify-content:space-between}
+.panel .hd b{font-weight:900;font-size:1rem}
+.panel .hd button{background:var(--bg);width:32px;height:32px;border-radius:50%;font-size:1rem;color:var(--mut)}
+.panel .body{flex:1;overflow-y:auto;padding:4px 18px}
+.c-item{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+.c-item .ci{width:52px;height:52px;border-radius:13px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.c-item .ci img{width:100%;height:100%;object-fit:cover}
+.c-item .cn{flex:1;font-size:.74rem;font-weight:700;line-height:1.45}
+.c-item .cn span{display:block;color:var(--gold);font-weight:900;font-size:.78rem}
+.qty{display:flex;align-items:center;gap:2px}
+.qty button{width:28px;height:28px;border-radius:9px;background:var(--bg);font-weight:900;font-size:.95rem}
+.qty b{min-width:26px;text-align:center;font-size:.85rem}
+.panel .ft{padding:12px 18px 24px;border-top:1px solid var(--line)}
+.tot{display:flex;justify-content:space-between;font-weight:900;font-size:1.02rem;margin-bottom:10px}
+.tot span{color:var(--gold)}
+.panel .ft input,.panel .ft textarea{width:100%;padding:10px 13px;border:1px solid var(--line);border-radius:12px;font-size:.85rem;margin-bottom:8px;background:var(--bg)}
+.wa-order{width:100%;padding:14px;border-radius:14px;background:var(--wa);color:#fff;font-weight:900;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:8px}
+.wa-order:disabled{background:#cdd3df}
+.wa-order svg{width:20px;height:20px;fill:#fff}
+.hint{font-size:.66rem;color:var(--mut);text-align:center;margin-top:8px}
+
+#adminBar{display:none;position:sticky;top:0;z-index:40;background:linear-gradient(90deg,var(--gold),var(--gold2));color:#fff;padding:8px 12px;font-size:.76rem;font-weight:800;align-items:center;gap:7px;flex-wrap:wrap}
+body.admin #adminBar{display:flex}
+#adminBar button{border-radius:9px;padding:6px 13px;font-size:.7rem;font-weight:800;background:#fff;color:var(--navy)}
+#adminBar .x{background:var(--navy);color:#fff;margin-inline-start:auto}
+
+.modal{position:fixed;inset:0;background:rgba(15,25,48,.6);display:none;align-items:flex-end;justify-content:center;z-index:60}
+.modal.show{display:flex}
+.sheet{background:#fff;width:100%;max-width:560px;border-radius:24px 24px 0 0;padding:20px 18px 28px;max-height:93vh;overflow-y:auto}
+.sheet h2{font-size:1rem;font-weight:900;margin-bottom:14px}
+.f{margin-bottom:10px}
+.f label{display:block;font-size:.7rem;font-weight:800;color:var(--mut);margin-bottom:4px}
+.f input,.f select,.f textarea{width:100%;padding:10px 13px;border:1px solid var(--line);border-radius:12px;font-size:.9rem;background:var(--bg)}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chk{display:flex;align-items:center;gap:9px;font-size:.8rem;font-weight:700;margin-bottom:8px}
+.chk input{width:18px;height:18px;accent-color:var(--gold)}
+.img-drop{border:2px dashed #d5dae6;border-radius:14px;padding:15px;text-align:center;font-size:.76rem;color:var(--mut);cursor:pointer;margin-bottom:10px;background:var(--bg)}
+.img-drop img{max-width:120px;max-height:120px;border-radius:12px;display:block;margin:8px auto 0}
+.save{width:100%;padding:13px;background:var(--navy);color:#fff;border-radius:14px;font-weight:900;font-size:.95rem;margin-top:6px}
+.save:disabled{background:#cdd3df}
+.cancel{width:100%;padding:10px;background:none;color:var(--mut);font-size:.8rem;margin-top:4px}
+.adm-one{padding:12px 8px;border-radius:13px;background:var(--bg);font-size:.78rem;font-weight:800;color:var(--ink);width:100%;display:block;margin-bottom:8px}
+.note{background:#fdf6e4;border:1px solid #f0dfae;border-radius:13px;padding:10px 13px;font-size:.7rem;line-height:1.9;margin-bottom:12px}
+.toast{position:fixed;bottom:150px;inset-inline-start:50%;transform:translateX(50%);background:var(--navy);color:#fff;padding:9px 20px;border-radius:26px;font-size:.78rem;opacity:0;transition:.25s;z-index:80;pointer-events:none;box-shadow:var(--sh)}
+.toast.show{opacity:1}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="adminBar">
+  <span>🛠️ وضع الإدارة</span>
+  <button onclick="openProd()">＋ منتج</button>
+  <button onclick="openSettings()">⚙️ الإعدادات</button>
+  <button onclick="openData()">💾 البيانات</button>
+  <button class="x" onclick="adminOff()">خروج</button>
+</div>
+
+<div id="announce"></div>
+
+<header>
+  <div class="head-in">
+    <div class="brand" id="brandTap">
+      <img id="logoH" alt="مكتبة التميز">
+      <div><b id="storeName">مكتبة التميز</b><small>AL-TAMAYOZ LIBRARY</small></div>
+    </div>
+    <span id="syncDot" title="حالة الاتصال"></span>
+    <div class="sp"></div>
+    <button class="cart-btn" onclick="openCart()">السلة <span class="n" id="cartN">0</span></button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-in">
+    <div class="hero-logo"><img id="logoHero" alt=""></div>
+    <div>
+      <h1>مكتبة <span class="gold-line">التميز</span></h1>
+      <p id="heroSub">قرطاسية . كتب . أدوات مدرسية — هيت / حي الزهور</p>
+    </div>
+  </div>
+</div>
+<div class="search-wrap">
+  <div class="search"><span class="ic">🔍</span><input id="q" type="search" placeholder="ابحث عن قلم، دفتر، ألوان…"></div>
+</div>
+
+<div class="cats" id="cats"></div>
+
+<div class="sec"><b id="secTitle">كل المنتجات</b><span id="secCount"></span></div>
+<div class="grid" id="grid"><div class="empty">⏳ جارٍ تحميل المنتجات…</div></div>
+
+<footer>
+  <div>للطلب والاستفسار عبر واتساب</div>
+  <a class="wa-num" id="waFoot" href="#">07826012817</a>
+  <div id="footAddr" style="margin-top:6px">هيت — حي الزهور، مجاور متوسطة زدني علمًا للبنات</div>
+  <button id="adminLink" onclick="adminLogin()">دخول الإدارة</button>
+</footer>
+
+<div class="cart-bar" id="cartBar" onclick="openCart()">
+  <div>🛒 <span id="barCount"></span> — <b id="barTot"></b></div>
+  <span class="go">إتمام الطلب</span>
+</div>
+
+<a class="wa-fab" id="waFab" href="#" target="_blank" rel="noopener" aria-label="واتساب">
+  <svg viewBox="0 0 24 24"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.94L2 22l5.2-1.5A9.9 9.9 0 1 0 12.04 2zm5.8 14.1c-.24.68-1.4 1.3-1.94 1.35-.5.05-1.13.24-3.8-.8-3.2-1.26-5.25-4.53-5.4-4.74-.16-.21-1.3-1.73-1.3-3.3s.82-2.34 1.1-2.66c.29-.32.63-.4.84-.4h.6c.2 0 .46-.07.72.55.26.63.9 2.18.98 2.34.08.16.13.35.02.56-.1.21-.16.34-.31.53-.16.18-.33.41-.47.55-.16.16-.32.33-.14.64.18.32.8 1.32 1.72 2.14 1.18 1.05 2.17 1.38 2.48 1.53.31.16.5.13.68-.08.18-.2.78-.9.98-1.2.2-.32.42-.26.7-.16.29.1 1.85.87 2.17 1.03.32.16.53.24.6.37.08.14.08.79-.16 1.55z"/></svg>
+</a>
+
+<!-- السلة -->
+<div class="drawer" id="cartDrawer">
+  <div class="panel">
+    <div class="hd"><b>🛒 سلة المشتريات</b><button onclick="closeCart()">✕</button></div>
+    <div class="body" id="cartBody"></div>
+    <div class="ft">
+      <div class="tot">المجموع: <span id="cartTot">0 د.ع</span></div>
+      <input id="custName" placeholder="اسمك الكريم">
+      <textarea id="custNote" rows="2" placeholder="العنوان / ملاحظات (اختياري)"></textarea>
+      <button class="wa-order" id="orderBtn" onclick="sendOrder()"><svg viewBox="0 0 24 24"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.94L2 22l5.2-1.5A9.9 9.9 0 1 0 12.04 2z"/></svg>إرسال الطلب عبر واتساب</button>
+      <div class="hint">يفتح واتساب برسالة جاهزة بتفاصيل طلبك — الدفع عند الاستلام</div>
+    </div>
+  </div>
+</div>
+
+<!-- منتج (إدارة) -->
+<div class="modal" id="prodModal">
+  <div class="sheet">
+    <h2 id="prodTitle">منتج جديد</h2>
+    <div class="img-drop" onclick="document.getElementById('pImgFile').click()">
+      📷 اضغط لإضافة صورة المنتج
+      <img id="pImgPrev" style="display:none">
+    </div>
+    <input type="file" id="pImgFile" accept="image/*" style="display:none">
+    <div class="f"><label>اسم المنتج</label><input id="pName"></div>
+    <div class="r2">
+      <div class="f"><label>سعر المفرد (د.ع)</label><input id="pPrice" type="number"></div>
+      <div class="f"><label>السعر قبل الخصم (اختياري)</label><input id="pOld" type="number"></div>
+    </div>
+    <div class="f"><label>التصنيف</label><select id="pCat"></select></div>
+    <div class="f"><label>وصف قصير (اختياري)</label><input id="pDesc"></div>
+    <div class="chk"><input type="checkbox" id="pStock" checked><label for="pStock">متوفر حاليًا</label></div>
+    <div class="chk"><input type="checkbox" id="pFeat"><label for="pFeat">⭐ منتج مميز (يظهر أولًا مع شارة)</label></div>
+    <button class="save" id="saveProdBtn" onclick="saveProd()">حفظ المنتج</button>
+    <button class="cancel" onclick="hide('prodModal')">إلغاء</button>
+  </div>
+</div>
+
+<!-- الإعدادات -->
+<div class="modal" id="setModal">
+  <div class="sheet">
+    <h2>⚙️ إعدادات المتجر</h2>
+    <div class="f"><label>رقم واتساب الطلبات</label><input id="sWa" dir="ltr"></div>
+    <div class="f"><label>شريط الإعلان (فارغ = مخفي)</label><input id="sAnn"></div>
+    <div class="f"><label>العنوان</label><input id="sAddr"></div>
+    <div class="f"><label>الجملة الترحيبية</label><input id="sSub"></div>
+    <div class="f"><label>التصنيفات (افصل بفارزة ،)</label><input id="sCats"></div>
+    <button class="save" onclick="saveSettings()">حفظ الإعدادات</button>
+    <button class="cancel" onclick="hide('setModal')">إغلاق</button>
+  </div>
+</div>
+
+<!-- البيانات -->
+<div class="modal" id="dataModal">
+  <div class="sheet">
+    <h2>💾 البيانات</h2>
+    <div class="note">متجرك مرتبط بقاعدة بيانات سحابية ☁️ — أي تعديل تسويه يوصل لكل الزبائن <b>تلقائيًا وفورًا</b> من أي جهاز. النسخة الاحتياطية للاحتياط فقط.</div>
+    <button class="adm-one" id="seedBtn" onclick="seedUpload()" style="display:none">🚀 رفع المنتجات الأولية (أول مرة فقط)</button>
+    <button class="adm-one" onclick="backup()">⬇️ تنزيل نسخة احتياطية</button>
+    <button class="adm-one" onclick="document.getElementById('restoreFile').click()">📥 استرجاع نسخة احتياطية للسحابة</button>
+    <input type="file" id="restoreFile" accept=".json" style="display:none">
+    <button class="cancel" onclick="hide('dataModal')">إغلاق</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const PID="tamayoz-71676";
+const APIKEY="AIzaSyAy7WFYKTQS3i2UoAKHKOZu5GtXWk4JxcY";
+const BASE=`https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents`;
+
+const LOGO="data:image/png;base64,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";
+const CAT_META={"دفاتر وورق":["📓","#eaf1ff"],"أقلام":["🖊️","#fff0e0"],"ألوان ورسم":["🎨","#ffe9f0"],"مساحات وممحاة":["🧽","#e8f8ef"],"ورق وفايلات":["📁","#fdf3d7"],"أدوات مكتبية":["📌","#eeeafd"],"حقائب ومطارات":["🎒","#e4f6fb"],"متنوعة":["🛍️","#f0f2f6"]};
+const DEFAULT_SETTINGS={
+  wa:"07826012817",
+  ann:"🎒 عروض العودة للمدارس — أسعار مفرد منافسة",
+  addr:"هيت — حي الزهور، مجاور متوسطة زدني علمًا للبنات",
+  sub:"قرطاسية . كتب . أدوات مدرسية — هيت / حي الزهور",
+  cats:["دفاتر وورق","أقلام","ألوان ورسم","مساحات وممحاة","ورق وفايلات","أدوات مكتبية","حقائب ومطارات","متنوعة"]
+};
+const SEED_PRODUCTS=[{"id":"p1","name":"مطري 100 عربي صيني 511 *8 درزن م3 او 5","price":500,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p2","name":"مطري 60 عربي صيني *12 درزن م3 و5","price":750,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p3","name":"دفتر 100 ورقة مخيط *72ق 6047/7 م3","price":1000,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":true},{"id":"p4","name":"دفتر 60 ورقة مخيط مطبوع *120ق 6047/6","price":750,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p5","name":"مدرسي 100 هارد كفر كلوسي *60ق م3","price":1500,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p6","name":"دفتر مدرسي 100 مقوى 10377/1 *72ق م2","price":1250,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p7","name":"مطبوع 100 ورقة عربي 46/7 *6 درزن","price":1250,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p8","name":"دفتر 30 ورقة م5","price":250,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p9","name":"بلوك ورق لاصق ملون 12 درزن *300 ورقة 10419/8","price":1000,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p10","name":"تجليد لاصق ملون 1380/1381 *100 سيت","price":1250,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p11","name":"تجليد لاصق شفاف 10417/1 *50 سيت","price":2000,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p12","name":"مطري 100 انكليزي اندنوسي *96ق م5","price":500,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p13","name":"مطري 60 انكليزي صيني فيوجرلاين *144ق","price":750,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p14","name":"جامعي 192 حافة ملونة 491 *24ق م5","price":4250,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":true},{"id":"p15","name":"جامعي 3 فاصل سنترلاين 180 *24ق م3","price":3000,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p16","name":"طين صناعي 12ق في كيس 200ق 10389/1","price":1000,"old":null,"cat":"ألوان ورسم","desc":"","img":"","stock":true,"feat":false},{"id":"p17","name":"ورق بحث اندنوسي 40 ورقة *100 بند","price":1250,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p18","name":"دفتر خطوط بياني 10509/1 *12ق","price":250,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p19","name":"دفتر ملاحظات لماع *24 *707 *8 باكيت","price":1000,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p20","name":"دفتر ملاحظات سيم اي 7 10428/3","price":250,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p21","name":"دفتر رسم تيل 20 ورقة *20 درزن م7","price":500,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p22","name":"دفتر رسم تيل 12 ورقة *30 درزن 10493/8 م6","price":500,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p23","name":"كبس اي فور كيج 150 10372/12","price":12500,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p24","name":"كتر اي فور حديد 10427/3 *10ق","price":13000,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p25","name":"قلم جاف بيانو دكمة ذهبي ازرق 028 بي تي 10463/14","price":250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p26","name":"جاف بيانو دكمة 0.5 اسود 023 بي جي 10465/4","price":250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p27","name":"قلم جل فسفوري 311-10 *10 علبة","price":2250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p28","name":"مسطرة ملون 30 سم 00302 *12 باكيت","price":500,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p29","name":"قلم جاف ليكسي مطبوع ازرق","price":250,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p30","name":"قلم جاف ليكسي مطبوع احمر","price":250,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p31","name":"قلم جاف ليكسي مطبوع اسود","price":250,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p32","name":"قراصة ورق 25 ملم علبة 48ق 10302/4 *48 علبة","price":3500,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p33","name":"لينك ستاند بنتونك 50 قلم","price":12000,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p34","name":"قلم سبورة 1015 ضغط *12 قلم مدبب 10222/1 *100ب","price":250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p35","name":"قلم 8 لون لماع 10321/2 *36ق *10 باكيت 360 سيت","price":750,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p36","name":"مسطرة 20 سم 2612 *100ق 10421/5 *2400","price":250,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p37","name":"مسطرة حديد 20 سم *100ب 10385/1 *12ق","price":2000,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p38","name":"مسطرة حديد 30 سم 9945/3 *12ق","price":250,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p39","name":"دفتر ملاحظات مع قلم *240ق 917","price":1000,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":true},{"id":"p40","name":"لينك اوفكس ستاند ملون 60 قلم","price":500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p41","name":"قلم جاف 1.0 بريم ازرق *120","price":250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p42","name":"جاف كلارو سيكما 0.7 اسود وازرق *120ب","price":3500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p43","name":"جاف درام فلامنكو 1.0 ملم *26 قلم 25 جي *40 درام","price":4250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p44","name":"قلم سي دي اسود ازرق احمر كوش *10ق 13912/2","price":250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p45","name":"هاوز دام *25 قلم 6126","price":4500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p46","name":"قلم جي فور ابيض *25ق *80 درام","price":250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p47","name":"قلم سوفت يونبل ازرق عادي 13918/1","price":6500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p48","name":"قلم سوفت يونبل اسود عادي 13918/2","price":6500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p49","name":"قلم خط تيكس اخضر *12ق","price":250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p50","name":"حبل باج قراصة حديد *100ق 13944/1 كيس 403","price":4500,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p51","name":"تيب كرستال *8ق 375 *50ق 7583/6","price":250,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p52","name":"كبس احوال كيج 250*40 باكيت 10673/5 - 7552/2","price":3250,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p53","name":"سليف شفاف خفيف *60 سيت 10372/9 م7","price":2500,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p54","name":"مساحة سبورة كبيرة كيس 30 درزن 10310/1 م2","price":500,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p55","name":"فوتو جوجو 180 غرام *20 ورقة وجهين 10383/2","price":250,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p56","name":"لون معي صغير *12ق 13913/2","price":250,"old":null,"cat":"ألوان ورسم","desc":"","img":"","stock":true,"feat":false},{"id":"p57","name":"لون معي بي فايف 10-63 *12ق 13937/1 *60 سيت","price":500,"old":null,"cat":"ألوان ورسم","desc":"","img":"","stock":true,"feat":false},{"id":"p58","name":"لوني معي 16 صفحة قبضة *40 درزن N516","price":750,"old":null,"cat":"ألوان ورسم","desc":"","img":"","stock":true,"feat":false},{"id":"p59","name":"مقلمة حديد مشبك دائري 10533/1/2","price":1000,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p60","name":"هندسة حديد 10418/1/2/3","price":750,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p61","name":"وجه سبايرول شفاف كيج 125 10293/5","price":250,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p62","name":"ظهر سبايرول *16ق او 10ق لونين فقط","price":500,"old":null,"cat":"ألوان ورسم","desc":"","img":"","stock":true,"feat":false},{"id":"p63","name":"مقلمة دوارة بلاستك 468/466 10508/17/18 *144ق","price":1750,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":true},{"id":"p64","name":"قلم رصاص سحري 9953/3 *6 قلم *200د","price":1500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p65","name":"بلوك علبة لاصق مع مقلمة *54ق","price":2000,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p66","name":"قاطعة تيب صغيرة 814","price":2250,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p67","name":"صمغ ستك 8 غم دلي *48ب","price":250,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p68","name":"قلم رصاص استاند 240 قلم داخل علبة 0052 10847/6/7","price":4250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p69","name":"كابسة دلي بلايس دكمة 0358 - 30 ورقة","price":6750,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p70","name":"ثاقبة دلي 20 ورقة 0102 *60ق","price":4750,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p71","name":"تيل كابسة دلتا *25 سيت 10385/4","price":250,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p72","name":"تيل كابسة صيني 10385/3","price":250,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p73","name":"تيل كابسة 23/15 - 100 ورقة","price":2000,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p74","name":"تيل كابسة 23/24 *170-210 ورقة","price":3000,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p75","name":"خالعة دبوس كنغاروا 240ق *10ق","price":1250,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p76","name":"دبوس حائط باكيت اخضر 7565/2/3 *10ق *100 باكيت","price":250,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p77","name":"باج موحدة عرض 812 - 90*55 - 7539/5 *300 سيت","price":2000,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p78","name":"غلاف باج 813 - 95*72 - 12382/6 *225 سيت","price":2500,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p79","name":"مقطة دلي كبيرة علبة 48ق *00106","price":500,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p80","name":"مقطة درام دلي 48ق 00903","price":500,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p81","name":"مقطة مزدوجة 00300 دلي *36ق","price":1500,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p82","name":"جاف 2 لون 0.7 مع 0.5 ميكانيك 392 - 13938/10 *30 اس","price":9500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p83","name":"قلم ميكانيك 2 ملم *48ق 7592/1","price":500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p84","name":"مقطة دلي 0594 *48ق","price":250,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p85","name":"قلم ميكانيك 0.2 ملم 48ق 2510 *1071 - 30 ستاند","price":15500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p86","name":"ظرف اي فور اسمر","price":1250,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p87","name":"ظرف رسمي اسمر","price":250,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p88","name":"مقطة دلي حافظة 0574 *72ق","price":1250,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p89","name":"قلم حبر ابيض فيوجر 666","price":250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p90","name":"اصباغ مائية علبة 10352/1 *144ق","price":1000,"old":null,"cat":"ألوان ورسم","desc":"","img":"","stock":true,"feat":false},{"id":"p91","name":"حبر ابيض دلي اصلي كتابة على الجام 10490 *48 باكيت","price":8750,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p92","name":"فرشاة رسم *6ق 9936/6 *6202 *600 سيت","price":1000,"old":null,"cat":"ألوان ورسم","desc":"","img":"","stock":true,"feat":false},{"id":"p93","name":"دفتر رسم 180 غرام اي فور 13969/1 *100ق م7","price":1750,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p94","name":"اصباغ خشب 12 لون مع مقطة 4236 *12ق *192","price":1250,"old":null,"cat":"ألوان ورسم","desc":"","img":"","stock":true,"feat":false},{"id":"p95","name":"ملاحظات سيم *24ق 10466/4 *16ب","price":750,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p96","name":"دفتر رسم 12 ورقة سيم *20 درزن 10493/2 م6","price":500,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p97","name":"اصباغ 12 لون خشب قصير صيني 7370/2 او 10418/5","price":250,"old":null,"cat":"ألوان ورسم","desc":"","img":"","stock":true,"feat":false},{"id":"p98","name":"اصباغ خشب 12 لون قصير نتراجة *24د","price":1000,"old":null,"cat":"ألوان ورسم","desc":"","img":"","stock":true,"feat":false},{"id":"p99","name":"اصباغ خشب 12 لون طويل نتراجة *16د","price":1750,"old":null,"cat":"ألوان ورسم","desc":"","img":"","stock":true,"feat":true},{"id":"p100","name":"دفتر ملاحظات لماع *24 *707 *8 باكيت (2)","price":1000,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p101","name":"ظرف صور صغير *50ق - 160 او 240 كارتون","price":250,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p102","name":"قلم دشبول 703 جي بي 10477/10 سمايل *45 درزن","price":750,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p103","name":"فايل ورقي ملون *100ق","price":750,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p104","name":"استمارة تقديم بيضاء *100ق","price":10750,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p105","name":"قلم ميكانيك 0.7 *40 قلم 539 *2191","price":500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p106","name":"لب ميكانيك 0.7 *12 لبة 9029 *40ق","price":7500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p107","name":"ميكانيك 2 ملم *48ق 298 بي ك 13926/18/19","price":500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p108","name":"مساحة دلي ايس كريم علبة 36ق 301","price":500,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p109","name":"علم عود صغير *12ق 123891/3 *200 درزن","price":250,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p110","name":"مساحة دلي سوداء كبيرة 3042 *30ق","price":500,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p111","name":"لب ميكانيك 0.7 ملون 8022 *80ق 13947/7 *48ب","price":8250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p112","name":"لب ميكانيك 0.7 دلي 2 بي 48ق 7004","price":750,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p113","name":"قلم سوفت يونبل اسود 157","price":250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p114","name":"قلم سوفت يونبل ازرق 157","price":250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p115","name":"مساحة دلي كيكة علبة 32ق *302","price":500,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p116","name":"مساحة دلي اسود *45ق 3043","price":500,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p117","name":"مساحة دلي فواكه 30*01400ق","price":6500,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p118","name":"مساحة دلي 4 بي 4 لون 3044 اي","price":500,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p119","name":"قلم ميكانيك 0.7 *36 قلم 419 *8770","price":15500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p120","name":"لب ميكانيك 0.7 *60ق 860 *13947/2 *60ب","price":5750,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p121","name":"مقطة مساحة دلي درام 24ق 550 اج","price":250,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p122","name":"لب ميكانيك مايكرو 0.7 *24 لبة *100ب 13947/11","price":2000,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p123","name":"مساحة دلي ملونة 3045 *36ق *24 باكيت","price":7750,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p124","name":"بطاقة مدرسية 20 درزن 10471/1","price":250,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p125","name":"فايل طباكة عادي *100د 12388/1","price":250,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p126","name":"فايل نايلون 13944/22","price":250,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p127","name":"فايل حاصرة *12 قطعة 10537/1 *40 سيت","price":250,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p128","name":"فايل طباكة اشكال 10482/8/9 *240ق","price":1000,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p129","name":"قلم 1.0 جل سكنجر 864 جي بي ازرق اسود احمر","price":6750,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p130","name":"قلم جل 1.0 ازرق 159 جي دلي","price":4250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p131","name":"قلم سوفت 0.5 اسود دلي 300 بي ك *144ب","price":4250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p132","name":"سوفت كوش 0.1 اسود وازرق 102 جي 10375/1/2","price":250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p133","name":"قلم سوفت 0.5 ازرق دلي 300 بي ل *144ب","price":4250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p134","name":"اصباغ ماجك دلي 12 لون 10000 سي","price":1250,"old":null,"cat":"ألوان ورسم","desc":"","img":"","stock":true,"feat":false},{"id":"p135","name":"حاصرة ورق 8 ملم *20 باكيت م2","price":8750,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p136","name":"حاصرة 14 ملم *50ق - 60 ورقة 10508/73 *20ب","price":7000,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p137","name":"فايل ورقي ابيض وجهين","price":750,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p138","name":"مسطرة مقص 32 علبة 10284/1 *40ق","price":250,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p139","name":"قلم تاشير 113 *4 قلم","price":1000,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p140","name":"مساحة سبورة اشكال ملون 1433/1432/1434","price":250,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p141","name":"مساحة سبورة برتقالي 1436 *12ق 291","price":500,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p142","name":"مساحة سمايل صغير *24ق 7569/14 *512","price":500,"old":null,"cat":"مساحات وممحاة","desc":"","img":"","stock":true,"feat":false},{"id":"p143","name":"جاف 6 لون *24ق مع لعبة 13926/23 *36 استاند","price":15000,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p144","name":"قلم 10 لون لعبة *36ق 13926/12 *24 استاند","price":20000,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":true},{"id":"p145","name":"كليب كارتوني اشكال *200ق","price":1000,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p146","name":"حزام كتاب عريض 10380/1 *60 سيت","price":500,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p147","name":"بلوك ورق ملاحظات اشكال 10419/6 *50ب","price":500,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p148","name":"بلوك مكتب لاصق 3 اصبع *12ق 10419/3 *40ب","price":500,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p149","name":"بلوك مكتب لاصق 4 اصبع *12ق 10419/4 *40ب","price":500,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p150","name":"رصاص دلي 2 بي ملون اطفال 012 *20 درزن","price":1500,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p151","name":"رصاص 2 بي دلي *20200","price":1250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p152","name":"رصاص دلي مثلث 38029 اج بي 20 كلوص م2","price":1250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p153","name":"رصاص اج بي فحمي بلاك 988 *24ق *12 علبة 13935/2","price":1250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p154","name":"ورق كولان ستار اي فور 80 غرام","price":5500,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p155","name":"جامعي 100 بلاستك 436 ان *48ق م7","price":2000,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p156","name":"جامعي 90 ورقة 1009 جلد *48ق م2","price":3250,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p157","name":"مطارة معدنية 550 ملم 13964/7 *50ق","price":3750,"old":null,"cat":"حقائب ومطارات","desc":"","img":"","stock":true,"feat":false},{"id":"p158","name":"حافظة طعام مع مطارة 10547/22 *72ق *166/5","price":3750,"old":null,"cat":"حقائب ومطارات","desc":"","img":"","stock":true,"feat":false},{"id":"p159","name":"حافظة طعام مع مطارة 10528/4 *63ق *218","price":3750,"old":null,"cat":"حقائب ومطارات","desc":"","img":"","stock":true,"feat":false},{"id":"p160","name":"مطارة ماء *108ق 13928/3","price":1750,"old":null,"cat":"حقائب ومطارات","desc":"","img":"","stock":true,"feat":false},{"id":"p161","name":"قلم جاف ثقيل جلد 494 *50ب","price":15250,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false},{"id":"p162","name":"سبورة مع حروف 6208/1 - 13963/24/23 *48ق","price":2250,"old":null,"cat":"أدوات مكتبية","desc":"","img":"","stock":true,"feat":false},{"id":"p163","name":"محفظة اقلام خفيف *600ق 10349/1 - 10490/1","price":1000,"old":null,"cat":"حقائب ومطارات","desc":"","img":"","stock":true,"feat":false},{"id":"p164","name":"محفظة اقلام شفافة 330 فيوجر","price":1500,"old":null,"cat":"حقائب ومطارات","desc":"","img":"","stock":true,"feat":false},{"id":"p165","name":"محفظة كتان 03-77 بناتي شفافة 626 *288ق","price":2750,"old":null,"cat":"حقائب ومطارات","desc":"","img":"","stock":true,"feat":false},{"id":"p166","name":"محفظة كتان 458 اج كي ولادي *288ق","price":3000,"old":null,"cat":"حقائب ومطارات","desc":"","img":"","stock":true,"feat":false},{"id":"p167","name":"احضار جلد عربي 80 ورقة طباكة 60ق 47zw00","price":3000,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p168","name":"تعلم الضرب او الحروف 350-351 7384/1 *7577/1/2","price":1000,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p169","name":"دفتر خطة سيم 395 *60ق م5","price":2000,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p170","name":"دفتر درجات وسط مقطوع يومي شخصي","price":1000,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p171","name":"دفتر غياب ايام وعطل *24ق","price":750,"old":null,"cat":"دفاتر وورق","desc":"","img":"","stock":true,"feat":false},{"id":"p172","name":"مفتوح ومغلق *200ق 10427/6","price":3000,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p173","name":"تجليد هدايا لماع ملون *100 سيت *50ق 7595/1","price":3250,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p174","name":"ابرو اي فور 9978/1 *200 سيت","price":1250,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p175","name":"ابرو اي فايف 10292/4 *200 سيت","price":1250,"old":null,"cat":"ورق وفايلات","desc":"","img":"","stock":true,"feat":false},{"id":"p176","name":"مطارة معدنية 550 ملم 13964/7 *50ق (2)","price":3750,"old":null,"cat":"حقائب ومطارات","desc":"","img":"","stock":true,"feat":false},{"id":"p177","name":"مطارة معدنية 550 ملم 13964/8 *50ق","price":3750,"old":null,"cat":"حقائب ومطارات","desc":"","img":"","stock":true,"feat":true},{"id":"p178","name":"قلم جاف علبة نسر ذهبي 519 *200","price":2000,"old":null,"cat":"أقلام","desc":"","img":"","stock":true,"feat":false}];
+
+const CACHE='tamayoz_cloud_cache_v1', CKEY='tamayoz_cart_v2', AKEY='tmz_auth_v1';
+let DB={settings:JSON.parse(JSON.stringify(DEFAULT_SETTINGS)),products:[]};
+let cart={}, curCat='', editP=null, isAdmin=false, cloudEmpty=false, AUTH=null;
+
+const $=id=>document.getElementById(id);
+function fmt(n){return Number(n).toLocaleString('en-US');}
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2100);}
+function hide(id){$(id).classList.remove('show');}
+function waIntl(){let w=(DB.settings.wa||'').replace(/\D/g,'');if(w.startsWith('0'))w='964'+w.slice(1);return w;}
+function norm(s){return (s||'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').toLowerCase();}
+function catIcon(c){return (CAT_META[c]||CAT_META['متنوعة'])[0];}
+function catBg(c){return (CAT_META[c]||CAT_META['متنوعة'])[1];}
+
+/* ===== طبقة الاتصال المباشر (REST) ===== */
+async function jfetch(url,opt={},ms=20000){
+  const c=new AbortController();const to=setTimeout(()=>c.abort(),ms);
+  try{
+    const r=await fetch(url,{...opt,signal:c.signal});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error((j.error&&j.error.message)||('HTTP '+r.status));
+    return j;
+  }catch(e){
+    if(e.name==='AbortError')throw new Error('انتهت مهلة الاتصال');
+    throw e;
+  }finally{clearTimeout(to);}
+}
+function enc(o){const f={};for(const k in o){const v=o[k];
+  if(v===null||v===undefined)f[k]={nullValue:null};
+  else if(typeof v==='boolean')f[k]={booleanValue:v};
+  else if(typeof v==='number')f[k]=Number.isInteger(v)?{integerValue:String(v)}:{doubleValue:v};
+  else if(Array.isArray(v))f[k]={arrayValue:{values:v.map(x=>({stringValue:String(x)}))}};
+  else f[k]={stringValue:String(v)};}
+  return f;}
+function dec(f){const o={};for(const k in (f||{})){const v=f[k];
+  if('stringValue'in v)o[k]=v.stringValue;
+  else if('integerValue'in v)o[k]=+v.integerValue;
+  else if('doubleValue'in v)o[k]=v.doubleValue;
+  else if('booleanValue'in v)o[k]=v.booleanValue;
+  else if('arrayValue'in v)o[k]=(v.arrayValue.values||[]).map(x=>x.stringValue||'');
+  else if('nullValue'in v)o[k]=null;}
+  return o;}
+async function token(){
+  if(!AUTH)return null;
+  if(Date.now()<AUTH.exp)return AUTH.idToken;
+  try{
+    const j=await jfetch('https://securetoken.googleapis.com/v1/token?key='+APIKEY,
+      {method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+       body:'grant_type=refresh_token&refresh_token='+encodeURIComponent(AUTH.refreshToken)});
+    AUTH={idToken:j.id_token,refreshToken:j.refresh_token,exp:Date.now()+((+j.expires_in||3600)-300)*1000};
+    localStorage.setItem(AKEY,JSON.stringify(AUTH));
+    return AUTH.idToken;
+  }catch(e){AUTH=null;localStorage.removeItem(AKEY);setAdmin(false);return null;}
+}
+async function authHeader(){
+  const t=await token();
+  if(!t)throw new Error('سجل دخول الإدارة أولًا');
+  return {'Content-Type':'application/json','Authorization':'Bearer '+t};
+}
+async function fsSet(path,data,mask){
+  let url=BASE+'/'+path;
+  if(mask)url+='?'+mask.map(f=>'updateMask.fieldPaths='+f).join('&');
+  return jfetch(url,{method:'PATCH',headers:await authHeader(),body:JSON.stringify({fields:enc(data)})});
+}
+async function fsDel(path){
+  return jfetch(BASE+'/'+path,{method:'DELETE',headers:await authHeader()});
+}
+
+/* ===== التشغيل ===== */
+async function init(){
+  $('logoH').src=LOGO;$('logoHero').src=LOGO;
+  const fav=document.createElement('link');fav.rel='icon';fav.href=LOGO;document.head.appendChild(fav);
+  try{cart=JSON.parse(localStorage.getItem(CKEY))||{};}catch(e){cart={};}
+  try{AUTH=JSON.parse(localStorage.getItem(AKEY));}catch(e){AUTH=null;}
+  try{const c=JSON.parse(localStorage.getItem(CACHE));if(c&&c.products&&c.products.length){DB=c;paintAll();}}catch(e){}
+  setAdmin(!!AUTH);
+  await loadCloud();
+  if(isAdmin&&cloudEmpty){
+    if(confirm('قاعدة البيانات فارغة — ترفع الـ'+SEED_PRODUCTS.length+' منتج الأولية هسة؟'))seedUpload();
+  }
+}
+async function loadCloud(){
+  try{
+    let docs=[],pt=null;
+    do{
+      const j=await jfetch(BASE+'/products?pageSize=300'+(pt?('&pageToken='+encodeURIComponent(pt)):''));
+      docs=docs.concat(j.documents||[]);pt=j.nextPageToken||null;
+    }while(pt);
+    const prods=docs.map(d=>({id:d.name.split('/').pop(),...dec(d.fields)}));
+    cloudEmpty=prods.length===0;
+    if(!cloudEmpty)DB.products=prods;
+    else if(!DB.products.length)DB.products=SEED_PRODUCTS.map(p=>({...p}));
+    try{
+      const cfg=await jfetch(BASE+'/config/main');
+      DB.settings={...DEFAULT_SETTINGS,...dec(cfg.fields)};
+    }catch(e){}
+    $('syncDot').classList.add('ok');
+    $('secCount').textContent='';
+    try{localStorage.setItem(CACHE,JSON.stringify(DB));}catch(e){}
+    paintAll();
+    $('seedBtn').style.display=(isAdmin&&cloudEmpty)?'block':'none';
+  }catch(e){
+    console.warn('cloud',e);
+    if(!DB.products.length)DB.products=SEED_PRODUCTS.map(p=>({...p}));
+    paintAll();
+    $('secCount').textContent='⚠️ '+e.message;
+    toast('تعذر الاتصال بالسحابة — تُعرض نسخة محلية');
+  }
+}
+function paintAll(){applySettings();renderCats();render();renderCartUI();}
+
+function applySettings(){
+  const s=DB.settings;
+  const a=$('announce');
+  if(s.ann){a.textContent=s.ann;a.style.display='block';}else a.style.display='none';
+  $('heroSub').textContent=s.sub||'';
+  $('footAddr').textContent=s.addr||'';
+  $('waFoot').textContent=s.wa;
+  $('waFoot').href='https://wa.me/'+waIntl();
+  $('waFab').href='https://wa.me/'+waIntl()+'?text='+encodeURIComponent('مرحبًا مكتبة التميز 👋 عندي استفسار');
+}
+function renderCats(){
+  $('cats').innerHTML=`<button class="${curCat===''?'on':''}" data-cat=""><span>✨</span> الكل</button>`+
+    DB.settings.cats.map(x=>`<button class="${curCat===x?'on':''}" data-cat="${x}"><span>${catIcon(x)}</span> ${x}</button>`).join('');
+  $('cats').querySelectorAll('button').forEach(b=>b.onclick=()=>{curCat=b.dataset.cat;renderCats();render();$('secTitle').textContent=curCat||'كل المنتجات';});
+}
+function render(){
+  const q=norm($('q').value.trim());
+  let list=DB.products.filter(p=>(!curCat||p.cat===curCat)&&(!q||norm(p.name+' '+(p.desc||'')).includes(q)));
+  list.sort((a,b)=>(b.feat?1:0)-(a.feat?1:0)||(b.stock?1:0)-(a.stock?1:0));
+  if(!$('secCount').textContent.startsWith('⚠️'))$('secCount').textContent=list.length+' منتج';
+  const g=$('grid');
+  if(!list.length){g.innerHTML='<div class="empty">🔎 لا توجد منتجات مطابقة</div>';return;}
+  g.innerHTML=list.map(p=>{
+    const img=p.img?`<img src="${p.img}" alt="${p.name}" loading="lazy">`:`<span class="ph">${catIcon(p.cat)}</span>`;
+    const badge=!p.stock?`<span class="badge out">غير متوفر</span>`:(p.feat?`<span class="badge">⭐ مميز</span>`:'');
+    const old=p.old?`<s>${fmt(p.old)}</s>`:'';
+    const inCart=cart[p.id];
+    return `<div class="card">
+      ${badge}
+      <div class="im" style="background:${p.img?'#fff':catBg(p.cat)}">${img}</div>
+      <div class="bd">
+        <div class="nm">${p.name}</div>
+        <div class="pr"><b>${fmt(p.price)}</b><small>د.ع</small>${old}</div>
+        <button class="add ${inCart?'in':''}" ${!p.stock?'disabled':''} data-add="${p.id}">${!p.stock?'غير متوفر':(inCart?'✓ بالسلة ('+inCart+')':'أضف للسلة 🛒')}</button>
+      </div>
+      <div class="adm-mini">
+        <button data-ed="${p.id}">✏️</button>
+        <button data-st="${p.id}">${p.stock?'⏸':'▶️'}</button>
+        <button class="d" data-del="${p.id}">🗑️</button>
+      </div>
+    </div>`;
+  }).join('');
+  g.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>addCart(b.dataset.add));
+  g.querySelectorAll('[data-ed]').forEach(b=>b.onclick=()=>openProd(b.dataset.ed));
+  g.querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>toggleStock(b.dataset.st));
+  g.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>delProd(b.dataset.del));
+}
+
+/* ===== السلة ===== */
+function addCart(id){cart[id]=(cart[id]||0)+1;persistCart();render();renderCartUI();}
+function persistCart(){try{localStorage.setItem(CKEY,JSON.stringify(cart));}catch(e){}}
+function cartTotals(){let n=0,tot=0;for(const id in cart){const p=DB.products.find(x=>x.id===id);if(!p)continue;n+=cart[id];tot+=p.price*cart[id];}return{n,tot};}
+function renderCartUI(){
+  const{n,tot}=cartTotals();
+  $('cartN').textContent=n;
+  const bar=$('cartBar');
+  if(n>0){bar.classList.add('show');document.body.classList.add('has-cart');$('barCount').textContent=n+' منتج';$('barTot').textContent=fmt(tot)+' د.ع';}
+  else{bar.classList.remove('show');document.body.classList.remove('has-cart');}
+}
+function openCart(){renderCart();$('cartDrawer').classList.add('show');}
+function closeCart(){$('cartDrawer').classList.remove('show');}
+function adjCart(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];persistCart();renderCart();renderCartUI();render();}
+function renderCart(){
+  const b=$('cartBody');
+  const ids=Object.keys(cart).filter(id=>DB.products.find(p=>p.id===id));
+  let tot=0;
+  if(!ids.length){b.innerHTML='<div class="empty">سلتك فارغة — أضف منتجات وتعال 😊</div>';}
+  else b.innerHTML=ids.map(id=>{
+    const p=DB.products.find(x=>x.id===id);
+    const line=p.price*cart[id];tot+=line;
+    return `<div class="c-item">
+      <div class="ci" style="background:${p.img?'#fff':catBg(p.cat)}">${p.img?`<img src="${p.img}">`:catIcon(p.cat)}</div>
+      <div class="cn">${p.name}<span>${fmt(p.price)} × ${cart[id]} = ${fmt(line)} د.ع</span></div>
+      <div class="qty"><button data-q="${id}|1">＋</button><b>${cart[id]}</b><button data-q="${id}|-1">−</button></div>
+    </div>`;
+  }).join('');
+  b.querySelectorAll('[data-q]').forEach(x=>x.onclick=()=>{const[a,d]=x.dataset.q.split('|');adjCart(a,+d);});
+  $('cartTot').textContent=fmt(tot)+' د.ع';
+  $('orderBtn').disabled=!ids.length;
+}
+function sendOrder(){
+  const ids=Object.keys(cart).filter(id=>DB.products.find(p=>p.id===id));
+  if(!ids.length)return;
+  let tot=0,lines=ids.map((id,i)=>{
+    const p=DB.products.find(x=>x.id===id);
+    const line=p.price*cart[id];tot+=line;
+    return `${i+1}. ${p.name} × ${cart[id]} = ${fmt(line)} د.ع`;
+  });
+  const name=$('custName').value.trim(),note=$('custNote').value.trim();
+  let msg=`🛒 *طلب جديد — مكتبة التميز*\n\n${lines.join('\n')}\n\n💰 *المجموع: ${fmt(tot)} د.ع*`;
+  if(name)msg+=`\n👤 الاسم: ${name}`;
+  if(note)msg+=`\n📍 ${note}`;
+  window.open('https://wa.me/'+waIntl()+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+/* ===== الإدارة ===== */
+let tapC=0,tapT=null;
+$('brandTap').addEventListener('click',()=>{
+  tapC++;clearTimeout(tapT);tapT=setTimeout(()=>tapC=0,600);
+  if(tapC>=3){tapC=0;adminLogin();}
+});
+function setAdmin(v){isAdmin=v;document.body.classList.toggle('admin',v);$('seedBtn').style.display=(v&&cloudEmpty)?'block':'none';render();}
+async function adminLogin(){
+  if(isAdmin)return;
+  const email=prompt('بريد الإدارة (Email):');if(!email)return;
+  const pass=prompt('كلمة السر:');if(!pass)return;
+  try{
+    const j=await jfetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+APIKEY,
+      {method:'POST',headers:{'Content-Type':'application/json'},
+       body:JSON.stringify({email:email.trim(),password:pass,returnSecureToken:true})});
+    AUTH={idToken:j.idToken,refreshToken:j.refreshToken,exp:Date.now()+((+j.expiresIn||3600)-300)*1000};
+    localStorage.setItem(AKEY,JSON.stringify(AUTH));
+    setAdmin(true);toast('أهلًا بالمدير 🛠️');window.scrollTo({top:0});
+    if(cloudEmpty&&confirm('قاعدة البيانات فارغة — ترفع الـ'+SEED_PRODUCTS.length+' منتج هسة؟'))seedUpload();
+  }catch(e){alert('فشل الدخول: '+e.message);}
+}
+function adminOff(){AUTH=null;localStorage.removeItem(AKEY);setAdmin(false);}
+
+function cacheAndPaint(){try{localStorage.setItem(CACHE,JSON.stringify(DB));}catch(e){}render();}
+function fillCatSelect(){$('pCat').innerHTML=DB.settings.cats.map(c=>`<option>${c}</option>`).join('');}
+function openProd(id){
+  editP=id||null;fillCatSelect();
+  $('prodTitle').textContent=id?'تعديل منتج':'منتج جديد';
+  const p=id?DB.products.find(x=>x.id===id):null;
+  $('pName').value=p?p.name:'';
+  $('pPrice').value=p?p.price:'';
+  $('pOld').value=p&&p.old?p.old:'';
+  $('pCat').value=p?p.cat:DB.settings.cats[0];
+  $('pDesc').value=p?(p.desc||''):'';
+  $('pStock').checked=p?p.stock:true;
+  $('pFeat').checked=p?p.feat:false;
+  const pv=$('pImgPrev');
+  if(p&&p.img){pv.src=p.img;pv.style.display='block';}else{pv.src='';pv.style.display='none';}
+  $('prodModal').classList.add('show');
+}
+$('pImgFile').addEventListener('change',ev=>{
+  const f=ev.target.files[0];if(!f)return;
+  const img=new Image();
+  img.onload=()=>{
+    const max=600,sc=Math.min(1,max/Math.max(img.width,img.height));
+    const cv=document.createElement('canvas');
+    cv.width=Math.round(img.width*sc);cv.height=Math.round(img.height*sc);
+    cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);
+    const pv=$('pImgPrev');pv.src=cv.toDataURL('image/jpeg',.72);pv.style.display='block';
+  };
+  img.src=URL.createObjectURL(f);
+  ev.target.value='';
+});
+async function saveProd(){
+  const name=$('pName').value.trim(),price=+$('pPrice').value;
+  if(!name||!price){alert('الاسم وسعر المفرد مطلوبان');return;}
+  const data={
+    name,price,
+    old:+$('pOld').value||null,
+    cat:$('pCat').value,
+    desc:$('pDesc').value.trim(),
+    stock:$('pStock').checked,
+    feat:$('pFeat').checked,
+    img:$('pImgPrev').style.display==='block'?$('pImgPrev').src:''
+  };
+  const id=editP||('p'+Date.now());
+  const btn=$('saveProdBtn');btn.disabled=true;btn.textContent='جارٍ الحفظ…';
+  try{
+    await fsSet('products/'+id,data);
+    const i=DB.products.findIndex(x=>x.id===id);
+    if(i>-1)DB.products[i]={id,...data};else DB.products.unshift({id,...data});
+    cacheAndPaint();hide('prodModal');toast(editP?'تم التعديل ✅ (وصل للزبائن)':'أُضيف المنتج ✅ (وصل للزبائن)');
+  }catch(e){alert('فشل الحفظ: '+e.message);}
+  btn.disabled=false;btn.textContent='حفظ المنتج';
+}
+async function toggleStock(id){
+  const p=DB.products.find(x=>x.id===id);
+  try{await fsSet('products/'+id,{stock:!p.stock},['stock']);p.stock=!p.stock;cacheAndPaint();}
+  catch(e){alert('فشل التحديث: '+e.message);}
+}
+async function delProd(id){
+  const p=DB.products.find(x=>x.id===id);
+  if(!confirm('حذف "'+p.name+'"؟'))return;
+  try{await fsDel('products/'+id);DB.products=DB.products.filter(x=>x.id!==id);cacheAndPaint();toast('حُذف المنتج');}
+  catch(e){alert('فشل الحذف: '+e.message);}
+}
+function openSettings(){
+  const s=DB.settings;
+  $('sWa').value=s.wa;$('sAnn').value=s.ann||'';$('sAddr').value=s.addr||'';
+  $('sSub').value=s.sub||'';$('sCats').value=s.cats.join('، ');
+  $('setModal').classList.add('show');
+}
+async function saveSettings(){
+  const s={
+    wa:$('sWa').value.trim()||DB.settings.wa,
+    ann:$('sAnn').value.trim(),
+    addr:$('sAddr').value.trim(),
+    sub:$('sSub').value.trim(),
+    cats:$('sCats').value.split(/[،,]/).map(x=>x.trim()).filter(Boolean)
+  };
+  try{
+    await fsSet('config/main',s);
+    DB.settings=s;applySettings();renderCats();cacheAndPaint();hide('setModal');toast('حُفظت الإعدادات ✅');
+  }catch(e){alert('فشل الحفظ: '+e.message);}
+}
+function openData(){$('dataModal').classList.add('show');}
+async function seedUpload(){
+  if(!isAdmin){alert('سجل دخول الإدارة أولًا');return;}
+  toast('جارٍ رفع المنتجات… لا تغلق الصفحة');
+  try{
+    const hdr=await authHeader();
+    const writes=SEED_PRODUCTS.map(p=>{const rest={...p};delete rest.id;
+      return {update:{name:`projects/${PID}/databases/(default)/documents/products/${p.id}`,fields:enc(rest)}};});
+    await jfetch(`https://firestore.googleapis.com/v1/projects/${PID}/databases/(default)/documents:commit`,
+      {method:'POST',headers:hdr,body:JSON.stringify({writes})},90000);
+    await fsSet('config/main',DEFAULT_SETTINGS);
+    cloudEmpty=false;$('seedBtn').style.display='none';
+    await loadCloud();toast('رُفعت '+SEED_PRODUCTS.length+' منتج للسحابة ✅');
+  }catch(e){console.warn(e);alert('فشل الرفع: '+e.message);}
+}
+function backup(){
+  const blob=new Blob([JSON.stringify(DB)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='متجر-مكتبة-التميز-'+new Date().toISOString().slice(0,10)+'.json';a.click();
+  URL.revokeObjectURL(a.href);toast('نزلت النسخة الاحتياطية ✅');
+}
+$('restoreFile').addEventListener('change',ev=>{
+  const f=ev.target.files[0];if(!f)return;
+  if(!isAdmin){alert('سجل دخول الإدارة أولًا');return;}
+  const r=new FileReader();
+  r.onload=async()=>{
+    try{
+      const d=JSON.parse(r.result);if(!d.products)throw new Error('ملف غير صالح');
+      if(!confirm('راح تنرفع '+d.products.length+' منتج للسحابة وتستبدل الإعدادات. نكمل؟'))return;
+      for(const p of d.products){
+        const rest={...p};delete rest.id;
+        await fsSet('products/'+(p.id||('p'+Date.now()+Math.random().toString(36).slice(2,5))),rest);
+      }
+      if(d.settings)await fsSet('config/main',d.settings);
+      await loadCloud();toast('تم الاسترجاع للسحابة ✅');
+    }catch(e){alert('فشل الاسترجاع: '+e.message);}
+  };
+  r.readAsText(f);ev.target.value='';
+});
+
+$('q').addEventListener('input',render);
+$('cartDrawer').addEventListener('click',e=>{if(e.target.id==='cartDrawer')closeCart();});
+['prodModal','setModal','dataModal'].forEach(id=>$(id).addEventListener('click',e=>{if(e.target.id===id)hide(id);}));
+
+Object.assign(window,{openCart,closeCart,sendOrder,openProd,saveProd,openSettings,saveSettings,openData,backup,adminLogin,adminOff,hide,seedUpload});
+init();
+
+</script>
+</body>
+</html>
